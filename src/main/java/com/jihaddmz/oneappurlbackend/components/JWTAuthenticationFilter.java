@@ -41,16 +41,16 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        final String userIdFromToken = jwtService.extractUserIdFromToken(jwtToken);
+        final String userNameFromToken = jwtService.extractUserNameFromToken(jwtToken);
 
-        if (userIdFromToken == null || SecurityContextHolder.getContext().getAuthentication() != null) { // no user is associated with this token, or the user is
+        if (userNameFromToken == null || SecurityContextHolder.getContext().getAuthentication() != null) { // no user is associated with this token, or the user is
             // already authenticated so no need for re-authentication
             filterChain.doFilter(request, response);
             return;
         }
 
         if (jwtService.isTokenValid(jwtToken)) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(userIdFromToken);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(userNameFromToken);
 
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)); // attaching extra info the authToken, like Ip address, session id, etc...

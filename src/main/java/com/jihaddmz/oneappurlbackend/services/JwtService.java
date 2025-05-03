@@ -16,16 +16,16 @@ public class JwtService {
         return Keys.hmacShaKeyFor(Dotenv.load().get("SECRET_KEY").getBytes());
     }
 
-    public String generateToken(String email) {
+    public String generateToken(String username) {
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
 //                .setExpiration()
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String extractUserIdFromToken(String token) {
+    public String extractUserNameFromToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
