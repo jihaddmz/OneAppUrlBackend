@@ -13,5 +13,7 @@ EXPOSE 8080
 # Let Spring Boot bind to the port Render sets
 ENV PORT=8080
 
+RUN apt-get update && apt-get install -y ca-certificates
+
 # Run the JAR file
 ENTRYPOINT ["java", "-jar", "app.jar"]
