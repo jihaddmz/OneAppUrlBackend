@@ -11,13 +11,15 @@ public class EntityUser {
     @Id
     private String username;
 
+    private String fulName;
     private String password;
 
     public EntityUser() {
     }
 
-    public EntityUser(String username, String password) {
+    public EntityUser(String username, String fulName, String password) {
         this.username = username;
+        this.fulName = fulName;
         this.password = password;
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/auth")
 public class ControllerUser {
 
     private final ServiceUser serviceUser;
@@ -22,8 +22,13 @@ public class ControllerUser {
         return serviceUser.getAllUsers();
     }
 
-    @PostMapping("/save")
-    public EntityUser saveUser(@RequestBody Map<String, String> body) {
-        return serviceUser.saveUser(body.get("username"), body.get("password"));
+    @PostMapping("/signup")
+    public Map<String, Boolean> signUpUser(@RequestBody Map<String, String> body) {
+        return serviceUser.signupUser(body.get("username"), body.get("fullName"), body.get("password"));
+    }
+
+    @PostMapping("/signin")
+    public Map<String, String> signInUser(@RequestBody Map<String, String> body) {
+        return serviceUser.signInUser(body.get("username"), body.get("password"));
     }
 }

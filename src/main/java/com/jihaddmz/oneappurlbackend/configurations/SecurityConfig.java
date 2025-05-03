@@ -32,7 +32,7 @@ public class SecurityConfig {
         return httpSecurity.csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // don't block cors requests and use the one we define in CorsConfig class
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/user/**", "/api/url/**", "/u/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/u/**").permitAll()
                         .anyRequest().authenticated()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
