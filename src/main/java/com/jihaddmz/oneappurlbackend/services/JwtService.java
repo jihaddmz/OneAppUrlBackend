@@ -1,9 +1,9 @@
 package com.jihaddmz.oneappurlbackend.services;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -12,8 +12,11 @@ import java.util.Date;
 @Service
 public class JwtService {
 
+    @Value("${app.secret-key}")
+    private String secretKey;
+
     private Key getSignInKey() {
-        return Keys.hmacShaKeyFor(Dotenv.load().get("SECRET_KEY").getBytes());
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
     public String generateToken(String username) {

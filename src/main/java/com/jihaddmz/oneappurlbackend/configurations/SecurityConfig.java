@@ -2,6 +2,7 @@ package com.jihaddmz.oneappurlbackend.configurations;
 
 import com.jihaddmz.oneappurlbackend.components.JWTAuthenticationFilter;
 import com.jihaddmz.oneappurlbackend.services.MyUserDetailsService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -50,10 +51,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*")); // ✅ your frontend origin
+        configuration.setAllowedOrigins(List.of("https://oneappurl.netlify.app/", "http://localhost:5173/")); // ✅ your frontend origin
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
-//        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
