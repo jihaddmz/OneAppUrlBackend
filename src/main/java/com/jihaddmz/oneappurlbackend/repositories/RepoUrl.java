@@ -11,4 +11,6 @@ public interface RepoUrl extends MongoRepository<EntityUrl, String> {
     Optional<EntityUrl> findBySlug(String slug);
 
     List<EntityUrl> findAllByUsername(String username);
+
+    List<EntityUrl> findAllByAppNameLikeIgnoreCase(String query);
 }

@@ -1,18 +1,11 @@
 package com.jihaddmz.oneappurlbackend.controllers;
 
 import com.jihaddmz.oneappurlbackend.DtoUrl;
-import com.jihaddmz.oneappurlbackend.components.CustomException;
 import com.jihaddmz.oneappurlbackend.entities.EntityUrl;
 import com.jihaddmz.oneappurlbackend.services.ServiceUrl;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/url")
@@ -34,8 +27,18 @@ public class ControllerUrl {
         return serviceUrl.getAllByUsername(username);
     }
 
+    @GetMapping("/filter")
+    public List<EntityUrl> getAllByQuery(@RequestParam String query) {
+        return serviceUrl.searchUrls(query);
+    }
+
     @PostMapping("/save")
     public EntityUrl save(@RequestBody DtoUrl url) {
-        return serviceUrl.save(url.getUsername(), url.getIosUrl(), url.getAndroidUrl());
+        return serviceUrl.save(url.username(), url.iosUrl(), url.androidUrl(), url.appName());
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public EntityUrl delete(@PathVariable("id") String id) {
+        return serviceUrl.delete(id);
     }
 }
