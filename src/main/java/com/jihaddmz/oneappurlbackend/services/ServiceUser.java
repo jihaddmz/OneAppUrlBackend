@@ -33,7 +33,7 @@ public class ServiceUser {
     }
 
     public Map<String, String> signInUser(String username, String password) {
-        Optional<EntityUser> entityUser = repoUser.findById(username);
+        Optional<EntityUser> entityUser = repoUser.findByUsername(username);
 
         if (entityUser.isEmpty()) {
             throw new CustomException("User with username " + username + " is not found", 404);
